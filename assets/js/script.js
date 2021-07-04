@@ -9,11 +9,11 @@ if (passwordLength <= 7 || passwordLength >= 129) {
   var specChar = confirm("Would you like to include special characters?");
 }
 // Get references to the #generate element
-var generateBtn = document.querySelector("#generate");
+var generateBtn = document.querySelector("#generate", "#btn");
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword(i);
+  var password = generatePassword();
   var passwordText = document.querySelector("#password");
   var letters = 'abcdefghijklmnopqrstuvwxyzABCDEGHIJKLMNOPQRSTUVWXYZ';
   var numbers = '0123456789';
@@ -23,16 +23,39 @@ function writePassword() {
   var newPassword = "";
   var alphaNumber = letters.concat(numbers);
   var alphaNumberSpec = letters.concat(numbers,specialCharacters);
-  console.log(writePassword);
-  if (passwordLength >= 8 && passwordLength <= 128 && alphaChar === true) {
+  var alphaSpec = letters.concat(specialCharacters);
+  var numberSpec = numbers.concat(specialCharacters);
+  if (alphaChar === true && numChar === false && specChar === false) {
     for (var i = 0; i <= maxlength; i >= minLength, ++i)
     newPassword = newPassword + letters.charAt(Math.floor(Math.random() * i));
+  } 
+  
+  else (alphaChar === true && numChar === true && specChar === false)  
+    for (var i = 0; i <= maxlength; i >= minLength, ++i)
+    newPassword = newPassword + alphaNumber.charAt(Math.floor(Math.random() * i));
+  
+
+
+  if (alphaChar === true && numChar === true && specChar === true) {
+    for (var i = 0; i <= maxLength; i >= minLength, ++i)
+    newPassword = newPassword + alphaNumberSpec.charAt(Math.floor(Math.random() * i));
+  } else (alphaChar === true && numChar === false && specChar === true) 
+    for (var i = 0; i <= maxLength; i >= minLength, ++i)
+  newPassword = newPassword + alphaSpec.charAt(Math.floor(Math.random() * i));
+
+  if (alphaChar === false && numChar === true && specChar === true) {
+    for (var i = 0; i <= maxLength; i >= minLength, ++i)
+    newPassword = newPassword + numberSpec.charAt(Math.floor(Math.random() * i));
   }
 
-
+  generatePassword.onclick();
   passwordText.value = password;
+
 
 }
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+generateBtn.addEventListener ("click", function() {
+  ps = writePassword();
+  document.getElementById("password").placeholder =ps;
+}, btn);
